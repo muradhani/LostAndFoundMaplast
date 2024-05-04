@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.HomeFragment"
+        android:background="@color/white"
+        android:layout_marginHorizontal="@dimen/_20sdp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/new_advert_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CREATE A NEW ADVERT"
+            app:layout_constraintBottom_toTopOf="@+id/all_found_and_lost_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/all_found_and_lost_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SHOW ALL LOST &amp; FOUND ITEMS"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/all_found_and_lost_btn"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/show_map_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SHOW ON MAP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/all_found_and_lost_btn"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                tools:context=".ui.fragment.CreateAdvertFragment">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Post type : "
+                    android:textSize="@dimen/_20ssp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/radioButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lost" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Found"
+                        android:layout_marginLeft="@dimen/_20sdp"/>
+
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/edTextName"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:hint="Name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+                    app:layout_constraintBottom_toTopOf="@+id/edTextPhone"/>
+
+                <EditText
+                    android:id="@+id/edTextPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:hint="Phone"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edTextName"
+                    app:layout_constraintBottom_toTopOf="@+id/edTextDescription"/>
+
+                <EditText
+                    android:id="@+id/edTextDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:hint="Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edTextPhone"
+                    app:layout_constraintBottom_toTopOf="@+id/edTextDate"/>
+
+                <EditText
+                    android:id="@+id/edTextDate"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:hint="UserName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edTextDescription"
+                    app:layout_constraintBottom_toTopOf="@+id/edTextLocation"/>
+
+                <EditText
+                    android:id="@+id/edTextLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:hint="Location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edTextDate"
+                    app:layout_constraintBottom_toTopOf="@+id/AddBtn"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/AddBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SAVE"
+                    app:layout_constraintBottom_toTopOf="@+id/getCurrentLocation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edTextLocation" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/getCurrentLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="GET CURRENT LOCATION"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/AddBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</layout>
