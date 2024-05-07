@@ -26,11 +26,12 @@ public class SearchFragment extends Fragment implements PlaceSearchListener {
     private Button buttonSearch;
     NavController navController ;
     String placeName;
+    Bundle args;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
+        args = getArguments();
         // Find views
         editTextPlaceName = view.findViewById(R.id.edit_text_place_name);
         buttonSearch = view.findViewById(R.id.button_search);
@@ -53,11 +54,11 @@ public class SearchFragment extends Fragment implements PlaceSearchListener {
     @Override
     public void onPlaceFound(LatLng latLng) {
         Toast.makeText(requireContext(),"place found successfully",Toast.LENGTH_SHORT).show();
-        Bundle bundle = new Bundle();
-        bundle.putDouble("latitude", latLng.latitude);
-        bundle.putDouble("longitude", latLng.longitude);
-        bundle.putString("placeName", placeName);
-        navController.navigate(R.id.action_searchFragment_to_createAdvertFragment,bundle);
+        //Bundle bundle = new Bundle();
+        args.putDouble("latitude", latLng.latitude);
+        args.putDouble("longitude", latLng.longitude);
+        args.putString("placeName", placeName);
+        navController.navigate(R.id.action_searchFragment_to_createAdvertFragment,args);
     }
 
     @Override

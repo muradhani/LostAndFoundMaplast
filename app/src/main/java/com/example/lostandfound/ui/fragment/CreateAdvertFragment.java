@@ -67,11 +67,24 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle args = getArguments();
+        mViewModel.name.observe(getViewLifecycleOwner(), name -> binding.edTextName.setText(name));
+        mViewModel.phone.observe(getViewLifecycleOwner(), phone -> binding.edTextPhone.setText(phone));
+        mViewModel.description.observe(getViewLifecycleOwner(), description -> binding.edTextDescription.setText(description));
+        mViewModel.date.observe(getViewLifecycleOwner(), date -> binding.edTextDate.setText(date));
+
         if (args != null) {
             latitude = args.getDouble("latitude");
             longitude = args.getDouble("longitude");
             placeName = args.getString("placeName");
             binding.edTextLocation.setText(placeName);
+            String nameValue = args.getString("name");
+            String phoneValue = args.getString("phone");
+            String descriptionValue = args.getString("description");
+            String dateValue = args.getString("date");
+            binding.edTextName.setText(nameValue);
+            binding.edTextPhone.setText(phoneValue);
+            binding.edTextDescription.setText(descriptionValue);
+            binding.edTextDate.setText(dateValue);
             // Use latitude and longitude as needed
         }
         navController= NavHostFragment.findNavController(this);
@@ -98,7 +111,12 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     // Execute your desired functionality here
-                    navController.navigate(R.id.action_createAdvertFragment_to_searchFragment);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", binding.edTextName.getText().toString());
+                    bundle.putString("phone", binding.edTextPhone.getText().toString());
+                    bundle.putString("description", binding.edTextDescription.getText().toString());
+                    bundle.putString("date", binding.edTextDate.getText().toString());
+                    navController.navigate(R.id.action_createAdvertFragment_to_searchFragment,bundle);
                     return true; // Consume the event
                 }
                 return false; // Allow other touch events to be handled
@@ -151,7 +169,16 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
                         });
             }
         });
-
+        binding.edTextDate.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    DatePickerFragment datePickerFragment = new DatePickerFragment(binding.edTextDate);
+                    datePickerFragment.show(requireActivity().getSupportFragmentManager(), "datePicker");
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -163,5 +190,15 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
 
 // Pop back to the specified destination fragment
         navController.popBackStack(R.id.homeFragment, false);
+    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save the text of EditText fields
+        outState.putString("name", binding.edTextName.getText().toString());
+        outState.putString("phone", binding.edTextPhone.getText().toString());
+        outState.putString("description", binding.edTextDescription.getText().toString());
+        outState.putString("date", binding.edTextDate.getText().toString());
+        outState.putString("location", binding.edTextLocation.getText().toString());
     }
 }
