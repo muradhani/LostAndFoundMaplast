@@ -68,7 +68,7 @@ public class ItemsListFragment extends Fragment implements OnItemsLoadedListener
         bundle.putString("status", item.getStatus());
         bundle.putString("name", item.name);
         bundle.putString("date", item.getDate());
-        bundle.putString("location", item.getDescription());
+        bundle.putString("location", item.getLocation());
         navController.navigate(R.id.action_itemsListFragment_to_removeItemFragment,bundle);
     }
 
