@@ -19,6 +19,11 @@ import com.example.lostandfound.databinding.FragmentRemoveItemBinding;
 import com.example.lostandfound.ui.viewModels.OnItemRemovedListener;
 import com.example.lostandfound.ui.viewModels.RemoveItemViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class RemoveItemFragment extends Fragment implements OnItemRemovedListener {
 
     private RemoveItemViewModel mViewModel;
@@ -27,11 +32,9 @@ public class RemoveItemFragment extends Fragment implements OnItemRemovedListene
     private static final String ARG_DATE = "date";
     private static final String ARG_LOCATION = "location";
     NavController navController;
-    public static RemoveItemFragment newInstance() {
-        return new RemoveItemFragment();
-    }
     private FragmentRemoveItemBinding binding;
     String name ;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -53,9 +56,20 @@ public class RemoveItemFragment extends Fragment implements OnItemRemovedListene
             String description = bundle.getString(ARG_LOCATION);
             binding.tvFoundOrLost.setText(status);
             binding.tvName.setText(name);
-            binding.tvDate.setText(date);
             binding.tvDescription.setText(description);
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date currentDate = Calendar.getInstance().getTime();
+                Date receivedDate = dateFormat.parse(date);
+                long differenceMillis = receivedDate.getTime() - currentDate.getTime();
+                long differenceDays = Math.abs(differenceMillis / (1000 * 60 * 60 * 24));
+                String daysLabel = (differenceDays == 1) ? "day ago" : "days ago";
+                binding.tvDate.setText(differenceDays + " " + daysLabel);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
+
         binding.BtnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,5 +92,6 @@ public class RemoveItemFragment extends Fragment implements OnItemRemovedListene
             public void run() {
                 navController.popBackStack();
             }
-        });    }
+        });
+    }
 }

@@ -25,14 +25,14 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-
+import com.example.lostandfound.R;
 import com.example.lostandfound.data.local.entity.CaseEntity;
 import com.example.lostandfound.databinding.FragmentCreateAdvertBinding;
 import com.example.lostandfound.ui.viewModels.CreateAdvertViewModel;
-import com.example.lostandfound.R;
 import com.example.lostandfound.ui.viewModels.OnEntitySavedListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
@@ -67,11 +67,6 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle args = getArguments();
-        mViewModel.name.observe(getViewLifecycleOwner(), name -> binding.edTextName.setText(name));
-        mViewModel.phone.observe(getViewLifecycleOwner(), phone -> binding.edTextPhone.setText(phone));
-        mViewModel.description.observe(getViewLifecycleOwner(), description -> binding.edTextDescription.setText(description));
-        mViewModel.date.observe(getViewLifecycleOwner(), date -> binding.edTextDate.setText(date));
-
         if (args != null) {
             latitude = args.getDouble("latitude");
             longitude = args.getDouble("longitude");
@@ -125,10 +120,8 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
         binding.getCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check for location permissions
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted, request it
                     ActivityCompat.requestPermissions(getActivity(),
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                             MY_PERMISSIONS_REQUEST_LOCATION);
@@ -164,7 +157,15 @@ public class CreateAdvertFragment extends Fragment implements OnEntitySavedListe
                                     }
                                 } else {
                                     // Location is null, handle the case where location is not available
+                                    Toast.makeText(getContext(), "Location not available", Toast.LENGTH_SHORT).show();
                                 }
+                            }
+                        })
+                        .addOnFailureListener(getActivity(), new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Handle failure here
+                                Toast.makeText(getContext(), "Failed to get location: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
